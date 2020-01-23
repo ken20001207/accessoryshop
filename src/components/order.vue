@@ -79,6 +79,7 @@
 
 <script>
 import axios from "axios";
+import config from "../config.js";
 export default {
   name: "orderpage",
   data() {
@@ -97,7 +98,7 @@ export default {
     this.id = this.$route.params.orderid;
     axios({
       method: "get",
-      url: "http://localhost:3000/order/" + this.$route.params.orderid
+      url: host + "/order/" + this.$route.params.orderid
     })
       .then(res => {
         this.order = JSON.parse(res.data.data);

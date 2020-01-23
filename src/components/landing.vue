@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import config from "../config.js";
 import axios from "axios";
 import itemcard from "./itemcard.vue";
 export default {
@@ -38,13 +39,13 @@ export default {
   created() {
     const vm = this;
     // 取得當前主打商品類別
-    axios({ method: "get", url: "http://localhost:3000/flagclass" })
+    axios({ method: "get", url: host + "/flagclass" })
       .then(res => {
         this.flagclass = res.data;
         // 取得主打類別的商品
         axios({
           method: "get",
-          url: "http://localhost:3000/itemsbyclass/" + this.flagclass
+          url: host + "/itemsbyclass/" + this.flagclass
         })
           .then(res => {
             this.flagClassItems = JSON.parse("[" + res.data + "]");

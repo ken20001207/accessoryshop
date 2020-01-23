@@ -39,6 +39,7 @@
 
 <script>
 import axios from "axios";
+import config from "../config.js";
 export default {
   name: "itempage",
   props: ["shoppingCart"],
@@ -46,7 +47,7 @@ export default {
     // 取得當前頁面顯示的商品
     axios({
       method: "get",
-      url: "http://localhost:3000/item/" + this.$route.params.itemid
+      url: host + "/item/" + this.$route.params.itemid
     })
       .then(res => {
         this.item = res.data;
@@ -96,7 +97,7 @@ export default {
       // 取得當前頁面顯示的商品
       axios({
         method: "get",
-        url: "http://localhost:3000/item/" + this.$route.params.itemid
+        url: host + "/item/" + this.$route.params.itemid
       })
         .then(res => {
           this.item = res.data;

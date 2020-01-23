@@ -71,6 +71,7 @@
 
 <script>
 import axios from "axios";
+import config from "../config.js";
 export default {
   name: "itempage",
   data() {
@@ -113,7 +114,7 @@ export default {
       } else
         axios({
           method: "post",
-          url: "http://localhost:3000/sendorder/",
+          url: host + "/sendorder/",
           data: {
             items: this.$store.state.shoppingcart,
             delivery: this.delivery
@@ -140,7 +141,7 @@ export default {
     const vm = this;
     axios({
       method: "get",
-      url: "http://localhost:3000/deliveryWay"
+      url: host + "/deliveryWay"
     })
       .then(res => {
         this.deliveryWay = res.data;

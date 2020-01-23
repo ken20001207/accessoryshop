@@ -20,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import config from "../config.js";
 import itemcard from "./itemcard.vue";
 export default {
   name: "classpage",
@@ -34,14 +35,14 @@ export default {
     // 取得當前頁面顯示的類別
     axios({
       method: "get",
-      url: "http://localhost:3000/class/" + this.$route.params.classid
+      url: host + "/class/" + this.$route.params.classid
     })
       .then(res => {
         this.class = res.data;
         // 取得該類別的商品
         axios({
           method: "get",
-          url: "http://localhost:3000/itemsbyclass/" + this.class.id
+          url: host + "/itemsbyclass/" + this.class.id
         })
           .then(res => {
             this.items = JSON.parse("[" + res.data + "]");
@@ -66,14 +67,14 @@ export default {
       // 取得當前頁面顯示的類別
       axios({
         method: "get",
-        url: "http://localhost:3000/class/" + this.$route.params.classid
+        url: host + "/class/" + this.$route.params.classid
       })
         .then(res => {
           this.class = res.data;
           // 取得該類別的商品
           axios({
             method: "get",
-            url: "http://localhost:3000/itemsbyclass/" + this.class.id
+            url: host + "/itemsbyclass/" + this.class.id
           })
             .then(res => {
               this.items = JSON.parse("[" + res.data + "]");
