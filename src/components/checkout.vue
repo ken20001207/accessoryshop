@@ -114,7 +114,7 @@ export default {
       } else
         axios({
           method: "post",
-          url: host + "/sendorder/",
+          url: config.host + "/sendorder/",
           data: {
             items: this.$store.state.shoppingcart,
             delivery: this.delivery
@@ -141,7 +141,7 @@ export default {
     const vm = this;
     axios({
       method: "get",
-      url: host + "/deliveryWay"
+      url: config.host + "/deliveryWay"
     })
       .then(res => {
         this.deliveryWay = res.data;

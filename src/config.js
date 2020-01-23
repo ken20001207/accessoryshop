@@ -1,1 +1,3 @@
-var host = "http://sgp.vt.linyuanlin.com:3000";
+export default {
+    "host": "http://sgp.vt.linyuanlin.com:3000"
+};

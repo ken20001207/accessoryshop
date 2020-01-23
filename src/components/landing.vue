@@ -39,13 +39,13 @@ export default {
   created() {
     const vm = this;
     // 取得當前主打商品類別
-    axios({ method: "get", url: host + "/flagclass" })
+    axios({ method: "get", url: config.host + "/flagclass" })
       .then(res => {
         this.flagclass = res.data;
         // 取得主打類別的商品
         axios({
           method: "get",
-          url: host + "/itemsbyclass/" + this.flagclass
+          url: config.host + "/itemsbyclass/" + this.flagclass
         })
           .then(res => {
             this.flagClassItems = JSON.parse("[" + res.data + "]");

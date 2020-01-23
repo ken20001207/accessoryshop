@@ -2,7 +2,7 @@
   <div>
     <!-- 浮動導航列 -->
     <div class="navbar">
-      <router-link class="logo" to="/">YOUR SHOPNAME</router-link>
+      <router-link class="logo" to="/">Salis 生活小飾館</router-link>
       <div class="itemclasses">
         <router-link to="/classpage/1">商品分類1</router-link>
         <router-link to="/classpage/2">商品分類2</router-link>
@@ -65,7 +65,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center">
-        <p style="margin-top: 60px">CopyRight YOUR SHOPNAME 2020.</p>
+        <p style="margin-top: 60px">CopyRight Salis 生活小飾館 2020.</p>
       </el-row>
     </div>
 

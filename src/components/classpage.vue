@@ -35,14 +35,14 @@ export default {
     // 取得當前頁面顯示的類別
     axios({
       method: "get",
-      url: host + "/class/" + this.$route.params.classid
+      url: config.host + "/class/" + this.$route.params.classid
     })
       .then(res => {
         this.class = res.data;
         // 取得該類別的商品
         axios({
           method: "get",
-          url: host + "/itemsbyclass/" + this.class.id
+          url: config.host + "/itemsbyclass/" + this.class.id
         })
           .then(res => {
             this.items = JSON.parse("[" + res.data + "]");
@@ -67,14 +67,14 @@ export default {
       // 取得當前頁面顯示的類別
       axios({
         method: "get",
-        url: host + "/class/" + this.$route.params.classid
+        url: config.host + "/class/" + this.$route.params.classid
       })
         .then(res => {
           this.class = res.data;
           // 取得該類別的商品
           axios({
             method: "get",
-            url: host + "/itemsbyclass/" + this.class.id
+            url: config.host + "/itemsbyclass/" + this.class.id
           })
             .then(res => {
               this.items = JSON.parse("[" + res.data + "]");

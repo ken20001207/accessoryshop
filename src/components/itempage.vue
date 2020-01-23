@@ -47,7 +47,7 @@ export default {
     // 取得當前頁面顯示的商品
     axios({
       method: "get",
-      url: host + "/item/" + this.$route.params.itemid
+      url: config.host + "/item/" + this.$route.params.itemid
     })
       .then(res => {
         this.item = res.data;
@@ -97,7 +97,7 @@ export default {
       // 取得當前頁面顯示的商品
       axios({
         method: "get",
-        url: host + "/item/" + this.$route.params.itemid
+        url: config.host + "/item/" + this.$route.params.itemid
       })
         .then(res => {
           this.item = res.data;

@@ -98,7 +98,7 @@ export default {
     this.id = this.$route.params.orderid;
     axios({
       method: "get",
-      url: host + "/order/" + this.$route.params.orderid
+      url: config.host + "/order/" + this.$route.params.orderid
     })
       .then(res => {
         this.order = JSON.parse(res.data.data);
