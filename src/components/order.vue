@@ -65,9 +65,6 @@
         <div v-if="status == 1">
           <p>付款狀態 : 尚未收到付款</p>
           <el-tag type="warning">付款後可能會需要最多24個小時系統才會更新狀態喔!</el-tag>
-          <div style="margin-top: 10px">
-            <el-button type="primary" @click="gotoecpay()">前往安全付款頁面</el-button>
-          </div>
         </div>
         <div v-if="status >= 2">
           <p>付款狀態 : 付款完成</p>
