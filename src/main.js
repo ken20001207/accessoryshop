@@ -80,6 +80,10 @@ const store = new Vuex.Store({
           return;
         }
       })
+    },
+    // 清空購物車
+    clean(state) {
+      state.shoppingcart = [];
     }
   }
 })

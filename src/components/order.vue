@@ -32,25 +32,46 @@
         <el-table-column prop="price" label="單價"></el-table-column>
         <el-table-column prop="sumprice" label="合計"></el-table-column>
       </el-table>
-      <h4 style="float: right">商品總金額 NT$ {{ this.sumprice }}</h4>
-      <h2>寄送資訊</h2>
-      <div class="deliveryInfo">
+      <h4 style="float: right">總金額 NT$ {{ this.sumprice }} (含運費)</h4>
+      <div style="margin-top: 60px">
+        <h2>寄送資訊</h2>
         <el-row>
-          <el-col :span="5">
-            <el-select v-model="delivery" placeholder="寄送方式">
-              <el-option label="全家超商取貨 60元" value="全家超商取貨 60元"></el-option>
-              <el-option label="統一超商取貨 60元" value="統一超商取貨 60元"></el-option>
-              <el-option label="黑貓宅急便 80元" value="黑貓宅急便 80元"></el-option>
-              <el-option label="中華郵政 40元" value="中華郵政 40元"></el-option>
-            </el-select>
+          <el-col :span="6">
+            <p>收件人</p>
+            <h3>{{ this.delivery.name}}</h3>
           </el-col>
-          <el-col :span="16">
-            <el-input v-model="delivery_info" placeholder="寄送地址或收件超商店名"></el-input>
-          </el-col>
-          <el-col :offset="1" :span="2">
-            <el-button type="primary" @click="updateDelivery()">保存</el-button>
+          <el-col :offset="1" :span="6">
+            <p>聯繫方式</p>
+            <h3>{{ this.delivery.phone}}</h3>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="6">
+            <p>電子郵件</p>
+            <h3>{{ this.delivery.email}}</h3>
+          </el-col>
+          <el-col :offset="1" :span="6">
+            <p>寄送方式</p>
+            <h3>{{ this.delivery.way}}</h3>
+          </el-col>
+          <el-col :offset="1" :span="10">
+            <p>收件地址</p>
+            <h3>{{ this.delivery.address}}</h3>
+          </el-col>
+        </el-row>
+      </div>
+      <div style="margin-top: 60px">
+        <h2>付款資訊</h2>
+        <div v-if="status == 1">
+          <p>付款狀態 : 尚未收到付款</p>
+          <el-tag type="warning">付款後可能會需要最多24個小時系統才會更新狀態喔!</el-tag>
+          <div style="margin-top: 10px">
+            <el-button type="primary" @click="gotoecpay()">前往安全付款頁面</el-button>
+          </div>
+        </div>
+        <div v-if="status >= 2">
+          <p>付款狀態 : 付款完成</p>
+        </div>
       </div>
     </el-col>
   </el-row>
@@ -66,38 +87,9 @@ export default {
       sumprice: 0,
       id: 0,
       status: 0,
-      delivery: "",
-      delivery_info: ""
+      payform: "",
+      delivery: {}
     };
-  },
-  methods: {
-    updateDelivery() {
-      const vm = this;
-      axios({
-        method: "post",
-        url: "http://localhost:3000/updateDelivery/",
-        data: {
-          id: this.id,
-          delivery: this.delivery,
-          delivery_info: this.delivery_info
-        }
-      })
-        .then(() => {
-          vm.$notify.success({
-            title: "保存成功!",
-            message:
-              "您新的寄送地址已保存成功，付款確認後您的商品會寄送到這個地址。",
-            position: "bottom-right"
-          });
-        })
-        .catch(function(error) {
-          vm.$notify.error({
-            title: "發生錯誤",
-            message: "系統發生了一項錯誤，請和我們聯絡來處理這個問題。" + error,
-            position: "bottom-right"
-          });
-        });
-    }
   },
   created() {
     const vm = this;
@@ -111,32 +103,32 @@ export default {
         this.order = JSON.parse(res.data.data);
         this.sumprice = res.data.sumprice;
         this.status = res.data.statusCode;
-        this.delivery = res.data.delivery;
-        this.delivery_info = res.data.delivery_info;
+        this.delivery = JSON.parse(res.data.delivery);
+        this.payform = res.data.payform;
       })
       .catch(function(error) {
         if (error.response.status == 404) {
+          vm.$notify.warning({
+            title: "該訂單不存在!",
+            message: "您輸入的訂單編號並不存在，請重新確認或連繫客服人員。",
+            position: "bottom-right"
+          });
           vm.$router.push("/");
-          alert("該訂單不存在，請再次確認您的訂單編號。");
         } else {
           vm.$notify.error({
             title: "系統發生了一項錯誤!",
             message: error,
             position: "bottom-right"
           });
+          vm.$router.push("/");
         }
       });
+  },
+  methods: {
+    gotoecpay() {
+      var myWindow = window.open("");
+      myWindow.document.write(this.payform);
+    }
   }
 };
 </script>
-
-<style scoped>
-.deliveryInfo {
-  width: 100%;
-  height: 400px;
-  margin-top: 40px;
-}
-h2 {
-  margin-top: 60px;
-}
-</style>

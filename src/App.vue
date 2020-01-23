@@ -10,8 +10,8 @@
         <router-link to="/classpage/4">商品分類4</router-link>
       </div>
       <div style="float:right;">
-        <i @click="shoppingCartOpening = true" class="bigicon el-icon-shopping-cart-full"></i>
-        <i @click="enterOrderID" class="bigicon el-icon-s-order"></i>
+        <i style="cursor: pointer" @click="shoppingCartOpening = true" class="bigicon el-icon-shopping-cart-full"></i>
+        <i style="cursor: pointer" @click="enterOrderID" class="bigicon el-icon-s-order"></i>
       </div>
     </div>
 
@@ -136,8 +136,8 @@ export default {
       this.shoppingCartOpening = false;
     },
     enterOrderID() {
-      this.$prompt("請輸入您的訂單編號", "提示", {
-        confirmButtonText: "确定",
+      this.$prompt("請輸入您的訂單編號", "訂單查詢", {
+        confirmButtonText: "查詢",
         cancelButtonText: "取消"
       }).then(({ value }) => {
         this.$router.push("/order/" + value);
