@@ -36,6 +36,7 @@ export default {
     };
   },
   created() {
+    const vm = this;
     // 取得當前主打商品類別
     axios({ method: "get", url: "http://localhost:3000/flagclass" })
       .then(res => {
@@ -49,7 +50,7 @@ export default {
             this.flagClassItems = JSON.parse("[" + res.data + "]");
           })
           .catch(function(error) {
-            this.$notify.error({
+            vm.$notify.error({
               title: "發生錯誤",
               message:
                 "系統發生了一項錯誤，請和我們聯絡來處理這個問題。" + error,
@@ -58,7 +59,7 @@ export default {
           });
       })
       .catch(function(error) {
-        this.$notify.error({
+        vm.$notify.error({
           title: "發生錯誤",
           message: "系統發生了一項錯誤，請和我們聯絡來處理這個問題。" + error,
           position: "bottom-right"
