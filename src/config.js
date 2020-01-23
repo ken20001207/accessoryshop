@@ -1,3 +1,3 @@
 export default {
-    "host": "http://sgp.vt.linyuanlin.com:3000"
+    "host": "https://sgp.vt.linyuanlin.com:3000"
 };
