@@ -2,21 +2,10 @@
   <div>
     <!-- 浮動導航列 (電腦版) -->
     <div class="navbar hidden-sm-and-down">
-      <el-row type="flex" justify="center">
+      <el-row type="flex" justify="center" style="text-align: center">
         <el-col :span="6"></el-col>
         <el-col :span="12">
-          <el-row type="flex" justify="center" style="text-align: center">
-            <el-col :span="4">
-              <router-link class="logo" to="/">Salis 生活小飾館</router-link>
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="center" class="itemclasses">
-            <router-link
-              v-for="theclass in this.classes"
-              :key="theclass.name"
-              :to="'/classpage/' + theclass.id"
-            >{{ theclass.name }}</router-link>
-          </el-row>
+          <router-link style="font-size: 24px; line-height: 60px" class="logo" to="/">Salis 生活小飾館</router-link>
         </el-col>
         <el-col :span="4"></el-col>
         <el-col :span="2" class="actions">
@@ -156,7 +145,7 @@ export default {
     }
 
     // 針對手機和桌面顯示調整購物車介面的寬度
-    if(screen.width > 600) {
+    if (screen.width > 600) {
       this.drawersize = "800px";
     }
 
@@ -199,8 +188,8 @@ body {
   font-family: "Times New Roman", "微軟正黑體", Times, serif;
 }
 .el-message-box {
-	width: 98%!important;
-	max-width: 420px;
+  width: 98% !important;
+  max-width: 420px;
 }
 .navbar {
   position: fixed;
