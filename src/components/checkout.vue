@@ -145,10 +145,32 @@ export default {
           .then(res => {
             localStorage.removeItem("shoppingcart");
             vm.$store.commit("clean");
-            vm.$router.push("/order/" + res.data.orderID);
-            var myWindow = window.open("");
-            myWindow.document.write(res.data.payform);
+            this.$confirm(
+              "畫面將跳轉至綠界金流安全付款介面，請您付款後選擇 “回到商店” 來查看你的訂單狀態。同時請您記下您的訂單編號 " +
+                res.data.orderID +
+                " 以便您未來需要查詢本筆訂單。",
+              "請注意",
+              {
+                confirmButtonText: "前往安全付款畫面",
+                type: "warning",
+                showClose: false,
+                showCancelButton: false,
+                closeOnClickModal: false,
+                closeOnPressEscape: false,
+                closeOnHashChange: false
+              }
+            )
+              .then(() => {
+                document.write(res.data.payform);
+              })
+              .catch(() => {
+                this.$message({
+                  type: "error",
+                  message: "付款時發生問題，請您重新送出訂單"
+                });
+              });
           })
+
           .catch(function(error) {
             vm.$notify.error({
               title: "發生錯誤",
