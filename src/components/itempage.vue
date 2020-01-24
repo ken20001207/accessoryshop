@@ -1,12 +1,47 @@
 <template>
-  <!-- container -->
-  <el-row type="flex" justify="center" style="margin-top: 120px">
-    <el-col :span="12">
-      <el-row>
-        <el-col :span="10">
-          <img :src="'./images/' + item.id + '.jpg'" class="image" style="width: 100%" />
-        </el-col>
-        <el-col :span="10" :offset="2">
+  <div>
+    <!-- 畫面容器 （桌面顯示） -->
+    <el-row type="flex" justify="center" style="margin-top: 120px" class="hidden-sm-and-down">
+      <el-col :span="12">
+        <el-row>
+          <el-col :span="10">
+            <img :src="'./images/' + item.id + '.jpg'" class="image" style="width: 100%" />
+          </el-col>
+          <el-col :span="10" :offset="2">
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.description }}</p>
+            <p>NT$ {{ item.price}}</p>
+            <div style="margin-top: 80px">
+              <el-select v-model="option" placeholder="商品選項">
+                <el-option v-for="opt in item.options" :key="opt" :value="opt">{{ opt }}</el-option>
+              </el-select>
+            </div>
+            <div style="margin-top: 10px">
+              <el-input-number v-model="num" :min="1" label="購買數量"></el-input-number>
+            </div>
+            <div style="margin-top: 10px">
+              <el-button @click="additem()">加入購物車</el-button>
+            </div>
+          </el-col>
+        </el-row>
+        <el-divider></el-divider>
+        <el-row>
+          <img
+            v-for="i in item.imgcount"
+            :key="i"
+            :src="'./images/' + item.id + '-' + i + '.jpg'"
+            class="image"
+            style="width: 100%"
+          />
+        </el-row>
+      </el-col>
+    </el-row>
+
+    <!-- 畫面容器 （手機顯示） -->
+    <el-row type="flex" justify="center" style="margin-top: 120px" class="hidden-md-and-up">
+      <el-row style="text-align: center">
+        <img :src="'./images/' + item.id + '.jpg'" class="image" style="width: 100%" />
+        <div style="display: inline-block">
           <h2>{{ item.name }}</h2>
           <p>{{ item.description }}</p>
           <p>NT$ {{ item.price}}</p>
@@ -21,20 +56,19 @@
           <div style="margin-top: 10px">
             <el-button @click="additem()">加入購物車</el-button>
           </div>
-        </el-col>
+        </div>
+        <el-row>
+          <img
+            v-for="i in item.imgcount"
+            :key="i"
+            :src="'./images/' + item.id + '-' + i + '.jpg'"
+            class="image"
+            style="width: 100%"
+          />
+        </el-row>
       </el-row>
-      <el-divider></el-divider>
-      <el-row>
-        <img
-          v-for="i in item.imgcount"
-          :key="i"
-          :src="'./images/' + item.id + '-' + i + '.jpg'"
-          class="image"
-          style="width: 100%"
-        />
-      </el-row>
-    </el-col>
-  </el-row>
+    </el-row>
+  </div>
 </template>
 
 <script>

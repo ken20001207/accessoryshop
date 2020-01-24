@@ -1,7 +1,7 @@
 <template>
   <!-- container -->
   <el-row type="flex" justify="center" style="margin-top: 120px">
-    <el-col :span="16">
+    <el-col :span="16" :xs="23" :sm="23">
       <h2>訂單詳情: # {{ this.id }}</h2>
       <el-tag type="danger">請記下您的訂單編號，未來需要使用訂單編號來查詢進度喔!</el-tag>
       <el-steps
@@ -9,7 +9,7 @@
         :space="400"
         :active="this.status"
         finish-status="success"
-        style="margin: 60px"
+        style="margin-top: 60px"
       >
         <el-step title="建立" description="訂單已經成功被建立"></el-step>
         <el-step title="付款" description="從下方選擇付款方式進行付款"></el-step>
@@ -33,7 +33,9 @@
         <el-table-column prop="sumprice" label="合計"></el-table-column>
       </el-table>
       <h4 style="float: right">總金額 NT$ {{ this.sumprice }} (含運費)</h4>
-      <div style="margin-top: 60px">
+
+      <!-- 寄送資訊（電腦畫面）-->
+      <div style="margin-top: 60px" class="hidden-sm-and-down">
         <h2>寄送資訊</h2>
         <el-row>
           <el-col :span="6">
@@ -60,6 +62,22 @@
           </el-col>
         </el-row>
       </div>
+
+      <!-- 寄送資訊（手機畫面）-->
+      <div style="margin-top: 60px" class="hidden-md-and-up">
+        <h2>寄送資訊</h2>
+        <p>收件人</p>
+        <h3>{{ this.delivery.name}}</h3>
+        <p>聯繫方式</p>
+        <h3>{{ this.delivery.phone}}</h3>
+        <p>電子郵件</p>
+        <h3>{{ this.delivery.email}}</h3>
+        <p>寄送方式</p>
+        <h3>{{ this.delivery.way}}</h3>
+        <p>收件地址</p>
+        <h3>{{ this.delivery.address}}</h3>
+      </div>
+
       <div style="margin-top: 60px">
         <h2>付款資訊</h2>
         <div v-if="status == 1">

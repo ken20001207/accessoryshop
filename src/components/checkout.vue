@@ -35,7 +35,8 @@
       </el-table>
 
       <h2>寄送資訊</h2>
-      <div class="deliveryInfo">
+      <!-- 寄送資訊表單（電腦版）-->
+      <div class="deliveryInfo hidden-sm-and-down">
         <el-row>
           <el-col :span="4">
             <el-select v-model="delivery.way" placeholder="寄送方式">
@@ -64,6 +65,26 @@
             <el-button type="primary" style="float: right" @click="sendOrder()">送出訂單</el-button>
           </el-col>
         </el-row>
+      </div>
+
+      <!-- 寄送資訊表單（手機版）-->
+      <div class="deliveryInfo hidden-md-and-up">
+        <el-select v-model="delivery.way" placeholder="寄送方式">
+          <el-option
+            v-for="way in deliveryWay"
+            :key="way.name"
+            :value="way.name"
+          >{{ way.name + " NT$" + way.price}}</el-option>
+        </el-select>
+        <el-input style="margin-top: 15px" v-model="delivery.address" placeholder="寄送地址或收件超商店名"></el-input>
+
+        <el-input style="margin-top: 15px" v-model="delivery.name" placeholder="收件人姓名"></el-input>
+
+        <el-input style="margin-top: 15px" v-model="delivery.phone" placeholder="收件人聯繫電話"></el-input>
+
+        <el-input style="margin-top: 15px" v-model="delivery.email" placeholder="收件人電子郵件"></el-input>
+
+        <el-button type="primary" style="float: right; margin-top: 15px" @click="sendOrder()">送出訂單</el-button>
       </div>
     </el-col>
   </el-row>
@@ -95,7 +116,8 @@ export default {
       const vm = this;
 
       // 確認所有欄位都已經填寫
-      if (this.delivery.way == "" ||
+      if (
+        this.delivery.way == "" ||
         this.delivery.way == undefined ||
         this.delivery.name == "" ||
         this.delivery.name == undefined ||

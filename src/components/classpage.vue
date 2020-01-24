@@ -1,12 +1,12 @@
 <template>
   <div style="text-align: center">
     <!-- 橫幅 -->
-    <el-image src="/images/cover.PNG" style="width: 100%"></el-image>
+    <el-image class="banner" src="/images/cover.PNG" style="width: 100%"></el-image>
 
     <!-- 商品區塊 -->
     <div>
       <p style="margin-top: 60px; margin-bottom: 30px">{{ this.class.name}}</p>
-      <el-row type="flex" justify="center">
+      <el-row>
         <itemcard
           v-for="item in items"
           :key="item.id"
@@ -97,3 +97,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .banner {
+    margin-top: 80px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+}
+</style>
