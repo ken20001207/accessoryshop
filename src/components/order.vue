@@ -1,7 +1,7 @@
 <template>
   <!-- container -->
   <el-row type="flex" justify="center" style="margin-top: 120px">
-    <el-col :span="16" :xs="23" :sm="23">
+    <el-col :span="16" :xs="22">
       <h2>訂單詳情: # {{ this.id }}</h2>
       <el-tag type="danger">請記下您的訂單編號，未來需要使用訂單編號來查詢進度喔!</el-tag>
       <el-steps
