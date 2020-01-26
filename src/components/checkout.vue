@@ -34,6 +34,10 @@
         </el-table-column>
       </el-table>
 
+      <h2>優惠代碼</h2>
+      <p>您有電子優惠卷嗎？輸入優惠代碼以獲得優惠！</p>
+      <el-input v-model="couponCode" placeholder="優惠代碼" style="width: 180px"></el-input>
+
       <h2>寄送資訊</h2>
       <!-- 寄送資訊表單（電腦版）-->
       <div class="deliveryInfo hidden-sm-and-down">
@@ -99,7 +103,8 @@ export default {
     return {
       shoppingCart: [],
       delivery: {},
-      deliveryWay: {}
+      deliveryWay: {},
+      couponCode: ""
     };
   },
   methods: {
@@ -139,20 +144,44 @@ export default {
           url: config.host + "/sendorder/",
           data: {
             items: this.$store.state.shoppingcart,
-            delivery: this.delivery
+            delivery: this.delivery,
+            couponCode: this.couponCode
           }
         })
           .then(res => {
             localStorage.removeItem("shoppingcart");
             vm.$store.commit("clean");
+
+            let couponDescription = "";
+            if (res.data.couponData.discount > 0) {
+              couponDescription =
+                "您使用的優惠代碼 “" +
+                this.couponCode +
+                "” 功能為總金額折價 NT$ " +
+                res.data.couponData.discount +
+                "。<br/><br/>";
+            } else if (res.data.couponData.percentOFF > 0) {
+              couponDescription =
+                "您使用的優惠代碼 “" +
+                this.couponCode +
+                "” 功能為總金額 " +
+                res.data.couponData.percentOFF * 100 +
+                "% 減免。<br/><br/>";
+            }
+
             this.$confirm(
-              "畫面將跳轉至綠界金流安全付款介面，請您付款後選擇 “回到商店” 來查看你的訂單狀態。同時請您記下您的訂單編號 " +
+              "本次訂單之應付金額為 NT$" +
+                res.data.orderData.sumprice +
+                "<br/><br/>" +
+                couponDescription +
+                "請您記下您的訂單編號 " +
                 res.data.orderID +
-                " 以便您未來需要查詢本筆訂單。",
-              "請注意",
+                " 以便您未來需要查詢本筆訂單。<br/><br/>" +
+                "畫面將跳轉至綠界金流安全付款介面，請您付款後選擇 “回到商店” 來查看你的訂單狀態。",
               {
                 confirmButtonText: "前往安全付款畫面",
                 type: "warning",
+                dangerouslyUseHTMLString: true,
                 showClose: false,
                 showCancelButton: false,
                 closeOnClickModal: false,
